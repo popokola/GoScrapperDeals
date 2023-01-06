@@ -37,7 +37,7 @@ func main() {
 
 	c.OnRequest(func(r *colly.Request) {
 		//set the user agent
-		r.Headers.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36")
+		//r.Headers.Set("User-Agent", "Put Your User Agent Here")
 		fmt.Println("Visiting", r.URL)
 	})
 
@@ -82,7 +82,6 @@ func main() {
 		c.Visit("https://dealabs.com/?page=" + strconv.Itoa(i))
 	}
 
-	// fmt.Println("deals", deals)
 	writeJSONFile(deals)
 
 }
