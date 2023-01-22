@@ -2,7 +2,10 @@ module github.com/popokola/goScrapper
 
 go 1.19
 
-require github.com/gocolly/colly v1.2.0
+require (
+	github.com/aws/aws-lambda-go v1.37.0
+	github.com/gocolly/colly v1.2.0
+)
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.0 // indirect

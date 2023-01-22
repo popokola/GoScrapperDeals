@@ -8,6 +8,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/gocolly/colly"
 )
 
@@ -16,6 +18,17 @@ type Deal struct {
 	Link     string `json:"link"`
 	Temp     string `json:"temp"`
 	EndPromo string `json:"end_promo"`
+}
+
+func HandleRequest(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	log.Println("Processing Lambda request ", request.RequestContext.RequestID)
+	response := events.APIGatewayProxyResponse{
+		StatusCode: 200,
+		Headers: map[string]string{
+			"Access-Control-Allow-Origin": "*",
+		},
+	}
+	return response, nil
 }
 
 func writeJSONFile(deals []Deal) {
@@ -30,9 +43,9 @@ func writeJSONFile(deals []Deal) {
 }
 
 func main() {
+	lambda.Start(HandleRequest)
 	deals := []Deal{}
 	numPage := 5
-
 	c := colly.NewCollector()
 
 	c.OnRequest(func(r *colly.Request) {
